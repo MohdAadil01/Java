@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Service {
     private List<Expense> expenses = new ArrayList<>();
@@ -21,8 +22,15 @@ public class Service {
     }
 
     public List<Expense> filter(String category) {
-        return expenses.stream().filter(exp -> exp.getCategory().equalsIgnoreCase(category))
-                .collect(Collectors.toList());
+        List<Expense> filtered_list = new ArrayList<>();
+        if (!expenses.isEmpty()) {
+            filtered_list = expenses.stream().filter(exp -> exp.getCategory().equalsIgnoreCase(category))
+                    .collect(Collectors.toList());
+        } else {
+            System.out.println("No expense found in the list with the given input.");
+            filtered_list = Collections.emptyList();
+        }
+        return filtered_list;
     }
 
     public double getTotalExpense() {
